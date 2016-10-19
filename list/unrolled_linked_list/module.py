@@ -29,9 +29,13 @@ class UnrolledLinkedList():
         node = self.head
         string = '{'
         while node is not None:
+            node_array = node.array
             string += '['
+            for index, element in enumerate(node_array):
+                string += str(element)+ '' if index == len(node_array) - 1 else str(element)+ ', '
             string += ']'
             node = node.next
+            string += '' if node is None else ', '
         string += '}'
         return string
 
