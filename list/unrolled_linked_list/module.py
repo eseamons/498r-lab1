@@ -26,7 +26,12 @@ class UnrolledLinkedList():
     #def __iter__ (self):
 
     def __str__ (self):
+        node = self.head
         string = '{'
+        while node is not None:
+            string += '['
+            string += ']'
+            node = node.next
         string += '}'
         return string
 
@@ -64,17 +69,23 @@ class UnrolledLinkedList():
 
 
 mylist = UnrolledLinkedList(4)
+print(mylist)
+print(len(mylist))
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
 mylist.append(4)
+print(mylist)
 mylist.append(5)
+print(mylist)
 mylist.append(6)
 mylist.append(7)
+print(mylist)
 mylist.append(8)
 mylist.append(9)
 
-print("done");
+print(mylist);
+print(len(mylist))
 
 
 
