@@ -2,6 +2,8 @@ from math import ceil as round
 
 
 class Node():
+    """Node class for storing unrolled linked list arrays
+    """
     def __init__(self):
         self.array = []
         self.next = None
@@ -18,7 +20,7 @@ class UnrolledLinkedList():
         self.length = 0
         self.head = None
 
-    def validateitem(self, index):
+    def validate_item(self, index):
         """This function checks if the index is in range.
         It checks if the index is positive and negative.
         If the index is positive, it will return the index.
@@ -33,28 +35,51 @@ class UnrolledLinkedList():
         else:
             raise IndexError('Index is out of range')
 
-    def __delitem__(self, index):
-        index = self.validateitem(index)
+    def balance(self, prev_node, current_node):
+        while current_node is not None:
+            next_node = current_node.next
+            if next_node is None and len(current_node) == 0:
+                prev_node = next_node
+            elif next_node is not None and  len(current_node) < round(self.max_node_capacity/2):
+                while len(current_node) < round(self.max_node_capacity/2):
+                    current_node.array.append(next_node.array.pop(0))
+            current_node = next_node
 
-    def __getitem__(self, index):
-        index = self.validateitem(index)
+
+    def __delitem__(self, index):
+        index = self.validate_item(index)
+        prev_node = None
         node = self.head
         while node is not None:
-            if index < len(node.array):
+            if index < len(node):
+                del node.array[index]
+                self.length -= 1
+                self.balance(prev_node,node)
+                break
+            else:
+                index -= len(node)
+                prev_node = node
+                node = node.next
+
+    def __getitem__(self, index):
+        index = self.validate_item(index)
+        node = self.head
+        while node is not None:
+            if index < len(node):
                 return node.array[index]
             else:
-                index -= len(node.array)
+                index -= len(node)
                 node = node.next
 
     def __setitem__(self, key, value):
-        index = self.validateitem(key)
+        index = self.validate_item(key)
         node = self.head
         while node is not None:
-            if index < len(node.array):
+            if index < len(node):
                 node.array[index] = value
                 break
             else:
-                index -= len(node.array)
+                index -= len(node)
                 node = node.next
 
     def __iter__(self):
@@ -114,7 +139,7 @@ class UnrolledLinkedList():
             node = self.head
             while node.next is not None:
                 node = node.next
-            if len(node.array) < self.max_node_capacity:
+            if len(node) < self.max_node_capacity:
                 node.array.append(data)
             else:
                 new_node = Node()
@@ -126,7 +151,7 @@ class UnrolledLinkedList():
         self.length += 1
 
 
-mylist = UnrolledLinkedList(4)
+mylist = UnrolledLinkedList(3)
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
@@ -134,6 +159,11 @@ mylist.append(4)
 mylist.append(5)
 mylist.append(6)
 mylist.append(7)
+print(mylist)
+del mylist[1]
+print(mylist)
+
+"""
 mylist.append(8)
 mylist.append(9)
 print(mylist)
@@ -142,6 +172,11 @@ mylist[-6] = 200
 mylist[-8] = 300
 mylist[-9] = 400
 print(mylist)
+"""
+
+
+
+
 """
 
 
