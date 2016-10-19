@@ -11,9 +11,7 @@ class Node():
 
 
 class UnrolledLinkedList():
-    """This is the class name you should use. You should also have a
-    max_node_capacity. Also, you should remove this comment and possibly
-    replace it with your own
+    """This class is used to implement an Unrolled Linked List
     """
     def __init__(self, max_node_capacity=16):
         self.max_node_capacity = max_node_capacity
@@ -26,7 +24,16 @@ class UnrolledLinkedList():
 
     #def __setitem__ (self,key,value):
 
-    #def __iter__ (self):
+    def __iter__(self):
+        node = self.head
+        iter_array = []
+        while node is not None:
+            iter_array += node.array
+            node = node.next
+        for element in iter_array:
+            yield element
+
+
 
     def __str__ (self):
         node = self.head
@@ -42,12 +49,19 @@ class UnrolledLinkedList():
         string += '}'
         return string
 
-    def __len__ (self):
+    def __len__(self):
         return self.length
 
-    #def __reversed__ (self):
+    def __reversed__(self):
+        node = self.head
+        iter_array = []
+        while node is not None:
+            iter_array += node.array
+            node = node.next
+        for element in reversed(iter_array):
+            yield element
 
-    def __contains__ (self, obj):
+    def __contains__(self, obj):
         if self.head is None:
             return False
         else:
@@ -80,26 +94,23 @@ class UnrolledLinkedList():
 
         self.length += 1
 
-
 mylist = UnrolledLinkedList(4)
-print(mylist)
-print(len(mylist))
+
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
 mylist.append(4)
-print(mylist)
 mylist.append(5)
-print(mylist)
 mylist.append(6)
 mylist.append(7)
-print(mylist)
 mylist.append(8)
 mylist.append(9)
-
-print(mylist);
-print(len(mylist))
-print(10 in mylist)
+print(mylist)
+for num in mylist:
+    print(num,end=' ')
+print('')
+for num in reversed(mylist):
+    print(num,end=' ')
 
 
 
