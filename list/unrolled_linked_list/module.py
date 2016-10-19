@@ -18,9 +18,19 @@ class UnrolledLinkedList():
         self.length = 0
         self.head = None
 
-    #def __delitem__ (self,index):
+    def __delitem__(self,index):
+        if index > self.length - 1:
+            raise IndexError('Index is out of range')
+        else:
+            print("Deleting Item at index " + str(index))
 
-    #def __getitem__ (self,index):
+    def __getitem__(self,index):
+        if index >= 0 and index > self.length - 1:
+            raise IndexError('Index is out of range')
+        elif index < 0 and index < - self.length:
+            raise IndexError('Index is out of range')
+        else:
+            print('In range')
 
     #def __setitem__ (self,key,value):
 
@@ -33,16 +43,14 @@ class UnrolledLinkedList():
         for element in iter_array:
             yield element
 
-
-
-    def __str__ (self):
+    def __str__(self):
         node = self.head
         string = '{'
         while node is not None:
             node_array = node.array
             string += '['
             for index, element in enumerate(node_array):
-                string += str(element)+ '' if index == len(node_array) - 1 else str(element)+ ', '
+                string += str(element) + '' if index == len(node_array) - 1 else str(element) + ', '
             string += ']'
             node = node.next
             string += '' if node is None else ', '
@@ -73,7 +81,7 @@ class UnrolledLinkedList():
                 node = node.next
             return contains_object
 
-    def append(self,data):
+    def append(self, data):
         if self.head is None:
             node = Node()
             node.array.append(data)
@@ -95,24 +103,28 @@ class UnrolledLinkedList():
         self.length += 1
 
 mylist = UnrolledLinkedList(4)
-
+print(mylist)
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
 mylist.append(4)
 mylist.append(5)
+print(mylist)
 mylist.append(6)
 mylist.append(7)
 mylist.append(8)
 mylist.append(9)
 print(mylist)
+del mylist[5]
 for num in mylist:
-    print(num,end=' ')
+    print(num, end=' ')
 print('')
 for num in reversed(mylist):
-    print(num,end=' ')
-
-
+    print(num, end=' ')
+print('')
+del mylist[-10]
+mylist[-9]
+test = [1,2,3,4,5,6,7,8,9]
 
 """
 __delitem__ (self,index)
@@ -126,19 +138,4 @@ If the index is too large, raise an IndexError
 __setitem__ (self,key,value):
 sets the item at key to value
 If the key is too large, raise an IndexError
-__iter__ (self):
-Use the Python yield statement to make your list iterable. This will allow you to use it in a for-each loop
-__str__ (self)
-Create a string representation of the list in the form {[x, x, x], [x, x], [x, x, x, x]} where each set of [] indicates the list of values within a single node.
-__len__ (self)
-returnsthetotal#ofdatainthelist,notthenumberofnodes
-__reversed__ (self)
-reverse of iter
-__contains__ (self, obj)
-Returns True if obj is in the data structure, otherwise False
-Implement additional method:
-
-append(self,data)
-Add the data to the end of the list
-If a node has reached its max capacity, you must create a new node to put the data in
 """
