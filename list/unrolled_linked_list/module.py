@@ -1,4 +1,6 @@
 from math import ceil as round
+
+
 class Node():
     def __init__(self):
         self.array = []
@@ -6,6 +8,7 @@ class Node():
 
     def __len__(self):
         return len(self.array)
+
 
 class UnrolledLinkedList():
     """This is the class name you should use. You should also have a
@@ -48,7 +51,13 @@ class UnrolledLinkedList():
         if self.head is None:
             return False
         else:
-            return True
+            contains_object = False
+            node = self.head
+            while node is not None:
+                if obj in node.array:
+                    contains_object = True
+                node = node.next
+            return contains_object
 
     def append(self,data):
         if self.head is None:
@@ -90,6 +99,7 @@ mylist.append(9)
 
 print(mylist);
 print(len(mylist))
+print(10 in mylist)
 
 
 
