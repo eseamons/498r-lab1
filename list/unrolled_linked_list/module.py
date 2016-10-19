@@ -40,11 +40,17 @@ class UnrolledLinkedList():
             next_node = current_node.next
             if next_node is None and len(current_node) == 0:
                 prev_node = next_node
-            elif next_node is not None and  len(current_node) < round(self.max_node_capacity/2):
-                while len(current_node) < round(self.max_node_capacity/2):
+                if self.length == 0:
+                    self.head = None
+            elif next_node is not None and len(current_node) <= self.max_node_capacity/2:
+                while len(current_node) <= self.max_node_capacity/2:
                     current_node.array.append(next_node.array.pop(0))
-            current_node = next_node
+                    if len(next_node) == 0:
+                        next_node = next_node.next
+                        current_node.next = next_node
 
+
+            current_node = next_node
 
     def __delitem__(self, index):
         index = self.validate_item(index)
@@ -149,9 +155,8 @@ class UnrolledLinkedList():
                 node.next = new_node
 
         self.length += 1
-
-
-mylist = UnrolledLinkedList(3)
+"""
+mylist = UnrolledLinkedList(6)
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
@@ -159,36 +164,18 @@ mylist.append(4)
 mylist.append(5)
 mylist.append(6)
 mylist.append(7)
-print(mylist)
-del mylist[1]
-print(mylist)
-
-"""
 mylist.append(8)
 mylist.append(9)
+mylist.append(10)
+mylist.append(11)
+mylist.append(12)
+mylist.append(13)
+mylist.append(14)
+mylist.append(15)
+mylist.append(16)
+mylist.append(17)
 print(mylist)
-mylist[-1] = 100
-mylist[-6] = 200
-mylist[-8] = 300
-mylist[-9] = 400
+del mylist[4]
 print(mylist)
-"""
 
-
-
-
-"""
-
-
-for num in mylist:
-    print(num, end=' ')
-print('')
-for num in reversed(mylist):
-    print(num, end=' ')
-print('')
-
-__delitem__ (self,index)
-Remove the item at the given index.
-If the index is negative, then you should remove starting from the back (i.e. deleting at -2 would delete the second-to-last element)
-If the index is too large, raise an IndexError
 """
