@@ -18,21 +18,44 @@ class UnrolledLinkedList():
         self.length = 0
         self.head = None
 
-    def __delitem__(self,index):
-        if index > self.length - 1:
-            raise IndexError('Index is out of range')
+    def validateitem(self, index):
+        """This function checks if the index is in range.
+        It checks if the index is positive and negative.
+        If the index is positive, it will return the index.
+        If the index is negative, it will return the positive index of the element, counting from the end of the list
+        """
+        if 0 <= index < self.length:
+            # index is positive
+            return index
+        elif 0 > index >= -self.length:
+            # index is negative
+            return self.length + index
         else:
-            print("Deleting Item at index " + str(index))
-
-    def __getitem__(self,index):
-        if index >= 0 and index > self.length - 1:
             raise IndexError('Index is out of range')
-        elif index < 0 and index < - self.length:
-            raise IndexError('Index is out of range')
-        else:
-            print('In range')
 
-    #def __setitem__ (self,key,value):
+    def __delitem__(self, index):
+        index = self.validateitem(index)
+
+    def __getitem__(self, index):
+        index = self.validateitem(index)
+        node = self.head
+        while node is not None:
+            if index < len(node.array):
+                return node.array[index]
+            else:
+                index -= len(node.array)
+                node = node.next
+
+    def __setitem__(self, key, value):
+        index = self.validateitem(key)
+        node = self.head
+        while node is not None:
+            if index < len(node.array):
+                node.array[index] = value
+                break
+            else:
+                index -= len(node.array)
+                node = node.next
 
     def __iter__(self):
         node = self.head
@@ -102,40 +125,35 @@ class UnrolledLinkedList():
 
         self.length += 1
 
+
 mylist = UnrolledLinkedList(4)
-print(mylist)
 mylist.append(1)
 mylist.append(2)
 mylist.append(3)
 mylist.append(4)
 mylist.append(5)
-print(mylist)
 mylist.append(6)
 mylist.append(7)
 mylist.append(8)
 mylist.append(9)
 print(mylist)
-del mylist[5]
+mylist[-1] = 100
+mylist[-6] = 200
+mylist[-8] = 300
+mylist[-9] = 400
+print(mylist)
+"""
+
+
 for num in mylist:
     print(num, end=' ')
 print('')
 for num in reversed(mylist):
     print(num, end=' ')
 print('')
-del mylist[-10]
-mylist[-9]
-test = [1,2,3,4,5,6,7,8,9]
 
-"""
 __delitem__ (self,index)
 Remove the item at the given index.
 If the index is negative, then you should remove starting from the back (i.e. deleting at -2 would delete the second-to-last element)
 If the index is too large, raise an IndexError
-__getitem__ (self,index):
-Returns the item in the given index.
-If the index is negative, return with the index starting from the back (i.e. getting at -1 returns the last item)
-If the index is too large, raise an IndexError
-__setitem__ (self,key,value):
-sets the item at key to value
-If the key is too large, raise an IndexError
 """
