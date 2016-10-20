@@ -6,12 +6,29 @@ import unittest
 
 
 class UnrolledLinkedList_Test(unittest.TestCase):
-    """This is an example of a Testing class. You are welcome to make multiple
-    classes to organize your code if you would like to, but it is in no way
-    required or expected. You'll want to replace this comment with your own.
+    """Test cases for each method in the Unrolled Linked List. Also includes edge cases
     """
     def test_default_node_capacity(self):
         """Test that the default node capacity is being set, and is set to 16
         """
         l = UnrolledLinkedList()
         self.assertEqual(l.max_node_capacity, 16)
+
+    def test_append_and_delete(self):
+        l = UnrolledLinkedList()
+        l.append(0)
+        self.assertEquals(str(l),'{[0]}')
+        del l[0]
+        self.assertEquals(str(l), '{}')
+
+    def test_append(self):
+        """This will test what happens when an element is inserted and the last node is full
+        """
+
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        self.assertEquals(str(l),'{[0, 1], [2, 3]}')
+

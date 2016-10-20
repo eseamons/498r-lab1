@@ -36,23 +36,28 @@ class UnrolledLinkedList():
             raise IndexError('Index is out of range')
 
     def balance(self, prev_node, current_node):
+        """Balances nodes after deleting an element
+        """
         while current_node is not None:
             next_node = current_node.next
             if next_node is None and len(current_node) == 0:
-                prev_node = next_node
                 if self.length == 0:
                     self.head = None
+                else:
+                    prev_node.next = None
             elif next_node is not None and len(current_node) <= self.max_node_capacity/2:
                 while len(current_node) <= self.max_node_capacity/2:
                     current_node.array.append(next_node.array.pop(0))
                     if len(next_node) == 0:
                         next_node = next_node.next
                         current_node.next = next_node
-
-
+                if len(next_node) >= self.max_node_capacity/2:
+                     break
             current_node = next_node
 
     def __delitem__(self, index):
+        """Delete item from list
+        """
         index = self.validate_item(index)
         prev_node = None
         node = self.head
@@ -68,6 +73,8 @@ class UnrolledLinkedList():
                 node = node.next
 
     def __getitem__(self, index):
+        """Get item from array. Works with positive and negative values
+        """
         index = self.validate_item(index)
         node = self.head
         while node is not None:
@@ -78,6 +85,8 @@ class UnrolledLinkedList():
                 node = node.next
 
     def __setitem__(self, key, value):
+        """Set item at index to a certain value
+        """
         index = self.validate_item(key)
         node = self.head
         while node is not None:
@@ -89,6 +98,8 @@ class UnrolledLinkedList():
                 node = node.next
 
     def __iter__(self):
+        """Returns iterator for Unrolled Linked List
+        """
         node = self.head
         iter_array = []
         while node is not None:
@@ -98,6 +109,8 @@ class UnrolledLinkedList():
             yield element
 
     def __str__(self):
+        """Prints string representation of Unrolled Linked List
+        """
         node = self.head
         string = '{'
         while node is not None:
@@ -112,9 +125,12 @@ class UnrolledLinkedList():
         return string
 
     def __len__(self):
+        """Get number of elements in Unrolled Linked List"""
         return self.length
 
     def __reversed__(self):
+        """Returns reverse iterator for Unrolled Linked List
+        """
         node = self.head
         iter_array = []
         while node is not None:
@@ -124,6 +140,8 @@ class UnrolledLinkedList():
             yield element
 
     def __contains__(self, obj):
+        """Returns True if element is found in list, otherwise it returns false
+        """
         if self.head is None:
             return False
         else:
@@ -136,6 +154,8 @@ class UnrolledLinkedList():
             return contains_object
 
     def append(self, data):
+        """Adds data to end of Unrolled Linked List
+        """
         if self.head is None:
             node = Node()
             node.array.append(data)
@@ -155,27 +175,3 @@ class UnrolledLinkedList():
                 node.next = new_node
 
         self.length += 1
-"""
-mylist = UnrolledLinkedList(6)
-mylist.append(1)
-mylist.append(2)
-mylist.append(3)
-mylist.append(4)
-mylist.append(5)
-mylist.append(6)
-mylist.append(7)
-mylist.append(8)
-mylist.append(9)
-mylist.append(10)
-mylist.append(11)
-mylist.append(12)
-mylist.append(13)
-mylist.append(14)
-mylist.append(15)
-mylist.append(16)
-mylist.append(17)
-print(mylist)
-del mylist[4]
-print(mylist)
-
-"""

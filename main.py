@@ -2,7 +2,7 @@
 
 import unittest
 # Imports test cases
-from list.tests.module_tests import * 
+from list.tests.module_tests import *
 
 
 def main():
