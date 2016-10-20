@@ -156,11 +156,33 @@ class UnrolledLinkedList_Test(unittest.TestCase):
 
 
     def test_len(self):
+        """test lengeth function
+        """
         l = UnrolledLinkedList(3)
         self.assertEqual(len(l),0)
         l.append(0)
         l.append(1)
         self.assertEqual(len(l),2)
+
+    def test_setitem(self):
+        """test set item. Test negative indexes. Also test positive indexes.
+        """
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        l.append(5)
+        l.append(6)
+        self.assertEqual(str(l), '{[0, 1], [2, 3], [4, 5, 6]}')
+        l[-1] = 100
+        l[-2] = 200
+        self.assertEqual(str(l), '{[0, 1], [2, 3], [4, 200, 100]}')
+        l[2] = 500
+        self.assertEqual(str(l), '{[0, 1], [500, 3], [4, 200, 100]}')
+
+
 
 
 
