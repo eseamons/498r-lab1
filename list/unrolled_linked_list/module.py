@@ -45,7 +45,7 @@ class UnrolledLinkedList():
                     self.head = None
                 else:
                     prev_node.next = None
-            elif next_node is not None and len(current_node) <= self.max_node_capacity/2:
+            elif next_node is not None and len(current_node) < self.max_node_capacity/2:
                 while len(current_node) <= self.max_node_capacity/2:
                     current_node.array.append(next_node.array.pop(0))
                     if len(next_node) == 0:

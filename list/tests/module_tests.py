@@ -17,12 +17,13 @@ class UnrolledLinkedList_Test(unittest.TestCase):
     def test_append_and_delete(self):
         l = UnrolledLinkedList()
         l.append(0)
-        self.assertEquals(str(l),'{[0]}')
+        self.assertEqual(str(l),'{[0]}')
         del l[0]
-        self.assertEquals(str(l), '{}')
+        self.assertEqual(str(l), '{}')
 
     def test_append(self):
-        """This will test what happens when an element is inserted and the last node is full
+        """This will test what happens when an element is inserted and the last node is full. Should take half of the contents
+        and move them to the next node.
         """
 
         l = UnrolledLinkedList(3)
@@ -30,5 +31,97 @@ class UnrolledLinkedList_Test(unittest.TestCase):
         l.append(1)
         l.append(2)
         l.append(3)
-        self.assertEquals(str(l),'{[0, 1], [2, 3]}')
+        self.assertEqual(str(l),'{[0, 1], [2, 3]}')
+
+    def test_getitem(self):
+        """Checks to see if positive and negative indexes work.
+        Also makes sure that indexes that are out of bounds throw the proper exception
+        """
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        self.assertEqual(str(l[-1]),'3')
+        self.assertEqual(str(l[2]),'2')
+
+        failed = False
+        try:
+            print(l[4])
+        except IndexError:
+            failed = True
+        self.assertTrue(failed)
+
+        failed = False
+        try:
+            print(l[-5])
+        except IndexError:
+            failed = True
+        self.assertTrue(failed)
+
+    def test_balancing_after_delete_max_six(self):
+        l = UnrolledLinkedList(6)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        l.append(5)
+        l.append(6)
+        l.append(7)
+        l.append(8)
+        l.append(9)
+        l.append(10)
+        l.append(11)
+        l.append(12)
+        l.append(13)
+        l.append(14)
+        l.append(15)
+        l.append(16)
+        l.append(17)
+        l.append(18)
+        l.append(19)
+        self.assertEqual(str(l), '{[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11], [12, 13, 14], [15, 16, 17, 18, 19]}')
+        del l[4]
+        self.assertEqual(str(l), '{[0, 1, 2], [3, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14], [15, 16, 17, 18, 19]}')
+
+    def test_delete_index_zero_four_times_max_sixteen(self):
+        """Tests deleting python
+        """
+        l = UnrolledLinkedList()
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        l.append(5)
+        l.append(6)
+        l.append(7)
+        l.append(8)
+        l.append(9)
+        l.append(10)
+        l.append(11)
+        l.append(12)
+        l.append(13)
+        l.append(14)
+        l.append(15)
+        l.append(16)
+        l.append(17)
+        del l[0]
+        del l[0]
+        del l[0]
+        del l[0]
+        self.assertEqual(str(l), '{[4, 5, 6, 7, 8, 9, 10, 11], [12, 13, 14, 15, 16, 17]}')
+
+    def test_contains(self):
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        self.assertTrue(3 in l)
+        self.assertFalse(4 in l)
+
+
+
 
