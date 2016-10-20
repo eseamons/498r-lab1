@@ -114,6 +114,8 @@ class UnrolledLinkedList_Test(unittest.TestCase):
         self.assertEqual(str(l), '{[4, 5, 6, 7, 8, 9, 10, 11], [12, 13, 14, 15, 16, 17]}')
 
     def test_contains(self):
+        """Tests to see if item exists in list
+        """
         l = UnrolledLinkedList(3)
         l.append(0)
         l.append(1)
@@ -121,6 +123,45 @@ class UnrolledLinkedList_Test(unittest.TestCase):
         l.append(3)
         self.assertTrue(3 in l)
         self.assertFalse(4 in l)
+
+    def test_iterator(self):
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        l.append(5)
+        l.append(6)
+        l.append(7)
+        iter_string = ''
+        for item in l:
+            iter_string += str(item) + ' '
+        self.assertEqual(iter_string, '0 1 2 3 4 5 6 7 ')
+
+    def test_reversed_iterator(self):
+        l = UnrolledLinkedList(3)
+        l.append(0)
+        l.append(1)
+        l.append(2)
+        l.append(3)
+        l.append(4)
+        l.append(5)
+        l.append(6)
+        l.append(7)
+        iter_string = ''
+        for item in reversed(l):
+            iter_string += str(item) + ' '
+        self.assertEqual(iter_string, '7 6 5 4 3 2 1 0 ')
+
+
+    def test_len(self):
+        l = UnrolledLinkedList(3)
+        self.assertEqual(len(l),0)
+        l.append(0)
+        l.append(1)
+        self.assertEqual(len(l),2)
+
 
 
 
